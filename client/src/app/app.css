@@ -1,6 +1,17 @@
 .chat-container {
     display: flex;
     flex-direction: column;
-    height: 100%;
+    height: 100vh;
     font-family: Arial;
+}
+
+app-chat-display {
+    flex: 1;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+app-chat-box {
+    flex-shrink: 0;
 }
