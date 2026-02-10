@@ -1,0 +1,7 @@
+.notification {
+    padding: 8px;
+    margin: 8px 0;
+    background-color: #f0f0f0;
+    color: #555;
+    width: fit-content;
+}

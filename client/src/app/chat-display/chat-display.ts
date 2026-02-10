@@ -4,6 +4,13 @@ import { ChatNotification } from '../chat-notification/chat-notification';
 import { ChatService } from '../chat.service';
 import { Message } from '../message';
 
+interface DisplayItem {
+  type: 'message' | 'notification';
+  timestamp: Date;
+  message?: Message;
+  notificationText?: string;
+}
+
 @Component({
     selector: 'app-chat-display',
     imports: [ChatMessage, ChatNotification],
@@ -11,8 +18,7 @@ import { Message } from '../message';
     styleUrl: './chat-display.css',
 })
 export class ChatDisplay implements OnInit {
-    messages: Message[] = [];
-    notifications: string[] = [];
+    displayItems: DisplayItem[] = [];
 
     constructor(
         private ChatService: ChatService,
@@ -21,12 +27,22 @@ export class ChatDisplay implements OnInit {
 
     ngOnInit() {
         this.ChatService.getMessagesFromServer().subscribe((message: Message) => {
-            this.messages.push(message);
+            this.displayItems.push({
+                type: 'message',
+                timestamp: message.timestamp || new Date(),
+                message: message
+            });
+
             this.cdr.detectChanges();
         });
 
         this.ChatService.getNotificationsFromServer().subscribe((notification: string) => {
-            this.notifications.push(notification);
+            this.displayItems.push({
+                type: 'notification',
+                timestamp: new Date(),
+                notificationText: notification
+            });
+
             this.cdr.detectChanges();
         });
     }

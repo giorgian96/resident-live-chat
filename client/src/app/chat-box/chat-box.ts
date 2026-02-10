@@ -14,12 +14,14 @@ export class ChatBox {
     constructor(private ChatService: ChatService) { }
 
     sendMessage() {
-        const username = this.usernameInput.nativeElement.value;
-        const message = this.messageInput.nativeElement.value;
+        const username = this.usernameInput.nativeElement.value.trim();
+        const message = this.messageInput.nativeElement.value.trim();
 
         if (username && message) {
             this.ChatService.transmitMessageToServer(username, message);
             this.messageInput.nativeElement.value = ''; // Clear it after sending
+        } else {
+            alert('Vă rugăm adăugați un username și un mesaj');
         }
     }
 }

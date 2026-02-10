@@ -12,12 +12,12 @@ const io = new Server(server, {
 });
 
 app.get('/', (req, res) => {
-    res.json({ message: 'Server is running' });
+    res.json({ message: 'Server-ul rulează' });
 });
 
 io.on('connection', (socket) => {
     // User connected, notify others
-    socket.broadcast.emit('notification', 'User X has connected');
+    socket.broadcast.emit('notification', 'Un utilizator s-a conectat');
 
     // Handle incoming message
     socket.on('chat message', (msg) => {
@@ -26,10 +26,10 @@ io.on('connection', (socket) => {
 
     // Handle user leaving
     socket.on('disconnect', () => {
-        socket.broadcast.emit('notification', 'User X has disconnected');
+        socket.broadcast.emit('notification', 'Un utilizator s-a deconectat');
     });
 });
 
 server.listen(3000, () => {
-  console.log('server running at http://localhost:3000');
+  console.log('Server-ul rulează la adresa http://localhost:3000');
 });

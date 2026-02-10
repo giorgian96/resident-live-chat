@@ -7,5 +7,5 @@ import { Component, Input } from '@angular/core';
     styleUrl: './chat-notification.css',
 })
 export class ChatNotification {
-    @Input() text!: string;
+    @Input() text!: string; // non-null assertion operator
 }

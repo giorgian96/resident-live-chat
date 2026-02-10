@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Message } from './message';
 import { Socket } from 'ngx-socket-io';
+import { map } from 'rxjs';
 
 @Injectable({
     providedIn: 'root',
@@ -8,19 +9,27 @@ import { Socket } from 'ngx-socket-io';
 export class ChatService {
     constructor(private socket: Socket) { }
 
+    private myUsername: string = '';
+
     transmitMessageToServer(username: string, message: string) {
+        this.myUsername = username;
+
         const theMessage: Message = {
             username: username,
             text: message,
-            timestamp: new Date(),
-            isOwnMessage: true
+            timestamp: new Date()
         };
 
         this.socket.emit('chat message', theMessage);
     }
 
     getMessagesFromServer() {
-        return this.socket.fromEvent<Message>('chat message');
+        return this.socket.fromEvent<Message>('chat message').pipe(
+            map(message => ({
+                ...message,
+                isOwnMessage: message.username === this.myUsername
+            }))
+        );
     }
 
     getNotificationsFromServer() {

@@ -1,8 +1,9 @@
 <div class="messages">
-    @for (notification of notifications; track $index) {
-        <app-chat-notification [text]="notification"></app-chat-notification>
-    }
-    @for (message of messages; track message.text) {
-        <app-chat-message [message]="message"></app-chat-message>
+    @for (item of displayItems; track $index) {
+        @if (item.type === 'message') {
+            <app-chat-message [message]="item.message!"></app-chat-message>
+        } @else {
+            <app-chat-notification [text]="item.notificationText!"></app-chat-notification>
+        }
     }
 </div>
