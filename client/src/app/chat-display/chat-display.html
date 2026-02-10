@@ -1,4 +1,9 @@
 <div class="messages">
+    @for (message of messages; track message.text) {
+        <div>
+            {{ message.username }}: {{ message.text }}
+        </div>
+    }
     <app-chat-message></app-chat-message>
     <app-chat-notification></app-chat-notification>
 </div>

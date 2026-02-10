@@ -1,7 +1,7 @@
 <div class="chat-box">
-    <input id="username-input" type="text" placeholder="Introduceți username-ul">
+    <input id="username-input" #usernameInput type="text" placeholder="Introduceți username-ul">
     <div class="message-row">
-        <textarea id="message-input" rows="3" placeholder="Scrieți mesajul..." autocomplete="off"></textarea>
-        <button id="send-message-btn">Trimite</button>
+        <textarea id="message-input" #messageInput rows="3" placeholder="Scrieți mesajul..." autocomplete="off"></textarea>
+        <button id="send-message-btn" (click)="sendMessage()">Trimite</button>
     </div>
 </div>
