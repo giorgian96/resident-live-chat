@@ -10,8 +10,9 @@ import { Message } from '../message';
     templateUrl: './chat-display.html',
     styleUrl: './chat-display.css',
 })
-export class ChatDisplay {
+export class ChatDisplay implements OnInit {
     messages: Message[] = [];
+    notifications: string[] = [];
 
     constructor(
         private ChatService: ChatService,
@@ -21,6 +22,11 @@ export class ChatDisplay {
     ngOnInit() {
         this.ChatService.getMessagesFromServer().subscribe((message: Message) => {
             this.messages.push(message);
+            this.cdr.detectChanges();
+        });
+
+        this.ChatService.getNotificationsFromServer().subscribe((notification: string) => {
+            this.notifications.push(notification);
             this.cdr.detectChanges();
         });
     }

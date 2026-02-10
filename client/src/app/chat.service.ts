@@ -22,4 +22,8 @@ export class ChatService {
     getMessagesFromServer() {
         return this.socket.fromEvent<Message>('chat message');
     }
+
+    getNotificationsFromServer() {
+        return this.socket.fromEvent<string>('notification');
+    }
 }
